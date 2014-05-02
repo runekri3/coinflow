@@ -11,12 +11,13 @@ def commandAdd(self, command):
 	if len(command) < 2:
 		self.writeConsole('You need to supply a seed value')
 		return
-	util.getAgent(self, command)
+	self.agentSeed = command[1]
+	util.getAgent(self)
 	util.getAddress(self)
 	util.initialTip(self)
 	util.getBalance(self)
 	self.agentNick = util.getNick(self, self.agentAddress)
-	self.agentSeed = command[1]
+
 	conn = sqlite3.connect('coinflow.db')
 	c = conn.cursor()
 	c.execute('select id from profiles where seed=?;', (command[1],))
